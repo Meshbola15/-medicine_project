@@ -1,18 +1,34 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Cards from "../../components/Cards/Cards";
+import medicalDataService from "../../Services/Medicial.services";
 
-const getLocalStorage = () => {
-  let list = localStorage.getItem("list");
-  if (list) {
-    return JSON.parse(localStorage.getItem("list"));
-  } else {
-    return [];
-  }
-};
+// const getLocalStorage = () => {
+//   let list = localStorage.getItem("list");
+//   if (list) {
+//     return JSON.parse(localStorage.getItem("list"));
+//   } else {
+//     return [];
+//   }
+// };
 
 const Hero = () => {
-  const [list, setList] = useState(getLocalStorage());
+  const [list, setList] = useState([]);
   const searchref = useRef(null);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const data = await medicalDataService.getAllmedical();
+    setList(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }))
+     
+    );
+  };
   return (
     <div>
       <section className="w-full text-center p-10">

@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Items from "./Pages/NewItemPage/Items";
 import "./App.css";
 import Error from "./Pages/Error/Error";
+import GetData from "./components/Data/GetData";
 
 const App = () => {
   return (
@@ -17,6 +18,9 @@ const App = () => {
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
+    // <div className="">
+    //   <GetData />
+    // </div>
   );
 };
 
