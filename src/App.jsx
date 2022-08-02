@@ -1,22 +1,22 @@
 import React from "react";
-import Hero from "./components/Hero/Hero";
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Hero from "./Pages/Hero/Hero";
 import Navbar from "./components/Navbar/Navbar";
-import Searchbar from "./components/Searchbar/Searchbar";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import Login from "./Pages/LoginPage/login";
 import Items from "./Pages/NewItemPage/Items";
-import "./App.css"
+import "./App.css";
+import Error from "./Pages/Error/Error";
 
 const App = () => {
   return (
-    <div className="bg-gray-200">
+    <BrowserRouter>
       <Navbar />
-      <Items />
-      {/* <Dashboard /> */}
-      {/* <Login /> */}
-      {/* <Searchbar />
-      <Hero /> */}
-    </div>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/edit" element={<Items />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

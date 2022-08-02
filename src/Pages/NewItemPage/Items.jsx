@@ -12,9 +12,9 @@ const getLocalStorage = () => {
   }
 };
 
-const Items = () => {
+const Items = () => {    
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState("")
   const [minPrice, setMinPrice] = useState("");
   const [dosage, setDosage] = useState("");
   const [desc, setDesc] = useState("");
@@ -111,7 +111,7 @@ const Items = () => {
               <Alert {...alert} removeAlert={showAlert} list={list} />
             )}
             <h3 className="text-4xl font-[poppins] uppercase font-black text-center m-4">
-              Item List{" "}
+              Item List
             </h3>
             <div className="space-y-3">
               <Input
@@ -150,6 +150,7 @@ const Items = () => {
                 placeholder="add desc...."
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
+                className="h-20"
               />
 
               <button

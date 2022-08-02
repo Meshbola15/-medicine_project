@@ -4,3 +4,7 @@
 .alert-success{
     background-color: rgba(34, 197, 94, 0.7);
 }
+
+.NavLinks:active{
+    color: rgb(252, 120, 120);
+}
