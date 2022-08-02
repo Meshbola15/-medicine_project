@@ -135,6 +135,13 @@ const Items = () => {
 
     setIsEditing(true);
     try {
+      if (id !== undefined || id !== "") {
+        await medicalDataService.updateMedical(id, newItem);
+        setAlert(true, "success", "Updated successfully");
+      } else {
+        await medicalDataService.addMedical(newItem);
+        setAlert(true, "success", "New item Added successfully");
+      }
       const specificItem = await medicalDataService.getMedicial(id);
       console.log("the record is:", specificItem.data());
       setName(specificItem.data().title);
