@@ -1,16 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore} from "firebase/firestore"
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAB3Sdt55NWsrcv_0lDiEs7Kljsgy1W3Bc",
-  authDomain: "medical-25b20.firebaseapp.com",
-  databaseURL: "https://medical-25b20-default-rtdb.firebaseio.com",
-  projectId: "medical-25b20",
-  storageBucket: "medical-25b20.appspot.com",
-  messagingSenderId: "423388366839",
-  appId: "1:423388366839:web:e987a67b169c860b0190f2",
+  apiKey: "AIzaSyAsyK8n44SVAEUOHOk2Eoe7M5SZkPfYJoA",
+  authDomain: "medical-pro-59614.firebaseapp.com",
+  projectId: "medical-pro-59614",
+  storageBucket: "medical-pro-59614.appspot.com",
+  messagingSenderId: "136946217180",
+  appId: "1:136946217180:web:14ebf6d91df72683d9c419",
 };
 
 const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(app)
+export const db = getFirestore(app);

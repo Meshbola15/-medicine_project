@@ -9,7 +9,7 @@ const Alert = ({ type, msg, removeAlert, list }) => {
   }, [list]);
   return (
     <p
-      className={`text-gray-800 rounded-lg transition-opacity ease-in  shadow-lg py-1 text-center capitalize text-lg font-bold font-[Montserrat] alert-${type}`}
+      className={`text-gray-800 rounded-lg transition-opacity ease-in shadow-lg py-1 text-center capitalize text-lg font-bold font-[Montserrat] alert-${type} fixed w-[80%] top-24 text-center`}
     >
       {msg}
     </p>

@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import React, { useState, useEffect } from "react";
 import Alert from "../../components/Alert/Alert";
 import Input from "../../components/Input/Input";
@@ -17,28 +16,20 @@ import medicalDataService from "../../Services/Medicial.services";
 const Items = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [dosage, setDosage] = useState("");
   const [desc, setDesc] = useState("");
   const [position, setPosition] = useState("");
   const [list, setList] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [editID, seteditID] = useState(null);
   const [alert, setAlert] = useState({
     show: false,
     msg: "",
     type: "",
   });
-  useEffect(() => {
-    getData();
-  }, []);
-
-  // useEffect(() => {
-  //   if (id !== undefined && id !== "") {
-  //     editItem();
-  //   }
-  // });
-
   const getData = async () => {
     const data = await medicalDataService.getAllmedical();
     console.log(data.docs);
@@ -49,6 +40,30 @@ const Items = () => {
       }))
     );
   };
+
+  useEffect(() => {
+    setLoading(true);
+    getData();
+    setLoading(false);
+  }, [list]);
+
+  if (loading === true) {
+    return (
+      <h2 className="text-5xl font-bold font-[montserrat] text-black text-center ">
+        <svg
+          className="animate-spin h-10 w-10 mr-3 ..."
+          viewBox="0 0 24 24"
+        ></svg>
+        Loading....
+      </h2>
+    );
+  }
+
+  // useEffect((id) => {
+  //   if (id !== undefined && id !== "") {
+  //     editItemList();
+  //   }
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,12 +129,12 @@ const Items = () => {
     setAlert({ show, type, msg });
   };
   const removeItem = async (id) => {
-    // showAlert(true, "danger", "item removed");
+    showAlert(true, "danger", "item removed");
     // setList(list.filter((item) => item.id !== id));
     await medicalDataService.deleteMedical(id);
     getMedicial();
   };
-  const editItem = async (id) => {
+  const editItemList = async (id) => {
     // const specificItem = list.find((item) => item.id === id);
     // setIsEditing(true);
     // seteditID(id);
@@ -129,9 +144,6 @@ const Items = () => {
     // setDosage(specificItem.useage);
     // setPosition(specificItem.position);
     // setDesc(specificItem.desc);
-    // console.log("====================================");
-    // console.log("the id is:", id);
-    // console.log("====================================");
 
     setIsEditing(true);
     try {
@@ -158,9 +170,17 @@ const Items = () => {
   //   localStorage.setItem("list", JSON.stringify(list));
   // }, [list]);
   return (
-    <div className="w-full flex justify-center">
-      <div className="max-w-[80%] font-[consolas] md:max-w-[60%] my-20 shadow-lg rounded-xl p-4 bg-white">
-        <section className="   ">
+    <div className="w-full flex justify-center ">
+      <input
+        className="border border-gray-200 bg-gray-100 shadow-md rounded-full outline-none max-w-[90%] md:max-w-[50%] shadow-gray-200 focus:shadow-2xl w-full h-10 focus:border-gray-300 p-4 font-[consolas] capitalize fixed top-24 "
+        type="text"
+        name="searchbar"
+        id="searchbar"
+        placeholder="type something"
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <div className="max-w-[80%] font-[consolas] md:max-w-[60%] my-20 shadow-lg  rounded-xl p-4 bg-white">
+        <section className="">
           <form onSubmit={handleSubmit}>
             {alert.show && (
               <Alert {...alert} removeAlert={showAlert} list={list} />
@@ -217,7 +237,19 @@ const Items = () => {
             </div>
           </form>
           <div className="">
-            <List items={list} removeItem={removeItem} editItem={editItem} />
+            <List
+              items={list.filter((item) => {
+                if (searchTerm == "") {
+                  return item;
+                } else if (
+                  item.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return item;
+                }
+              })}
+              removeItem={removeItem}
+              editItem={editItemList}
+            />
           </div>
         </section>
       </div>
